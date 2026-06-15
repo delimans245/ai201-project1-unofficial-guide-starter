@@ -38,15 +38,15 @@ This knowledge is valuable because rent, commute, room type, meal plans, and lan
 
 
 **Chunk size:**
-800 tokens
+50 tokens
 
 **Overlap:**
-120 tokens
+15 tokens
 
 **Reasoning:**
-These sources are mostly sectioned pages with FAQ blocks, pricing tables, and apartment cards. An 800-token chunk usually keeps one neighborhood explanation, one co-op description, or one policy subsection intact, while a small overlap preserves headings and the lead-in to tables or warning lists.
+The local corpus is made of short plain-text source files with a mix of overview paragraphs and section-sized blocks. A 50-token chunk keeps each chunk focused on one factual idea, while a 15-token overlap helps preserve sentence continuity and reduces the chance that a key detail is split across adjacent chunks.
 
-Before chunking, I will strip repeated navigation/footer boilerplate, keep section headings, and preserve the source URL/title alongside each chunk so retrieval can still cite where a fact came from.
+Before chunking, I keep the source title and URL at the top of each file and normalize whitespace so the splitter can work on clean sentence boundaries.
 
 ---
 
