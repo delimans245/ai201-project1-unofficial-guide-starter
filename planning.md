@@ -9,42 +9,42 @@
 
 ## Domain
 
-<!-- What domain did you choose? Why is this knowledge valuable and hard to find through official channels? -->
+Off-campus housing and Berkeley student co-op housing for UC Berkeley students.
+
+This knowledge is valuable because rent, commute, room type, meal plans, and landlord scam warnings are scattered across campus services, city tenant rules, cooperative housing pages, and apartment listings. It is hard to find in one place because official sites focus on policies and listings, while the practical tradeoffs students care about are spread across multiple sources and change independently.
 
 ---
 
 ## Documents
 
-<!-- List your specific sources: URLs, subreddit names, forum threads, or file descriptions.
-     Aim for at least 10 sources that together cover different subtopics or perspectives within your domain. -->
-
 | # | Source | Description | URL or location |
 |---|--------|-------------|-----------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
-| 9 | | | |
-| 10 | | | |
+| 1 | UC Berkeley Off-Campus Rental Services | Campus hub for off-campus rentals, roommates, and support | https://och.berkeley.edu/ |
+| 2 | Avoid Scams & Fraud | Scam red flags, reporting steps, and roommate safety advice | https://och.berkeley.edu/avoid-scams-and-fraud |
+| 3 | Contact Cal Rentals | Contact info and office details for the campus rental office | https://och.berkeley.edu/resources/article/5422-contact-calrentals |
+| 4 | Berkeley Rent Board home page | Tenant-rights news, resources, and city housing services | https://rentboard.berkeleyca.gov/ |
+| 5 | Berkeley Rent Board registration page | Registration rules and unit registration guidance | https://rentboard.berkeleyca.gov/rights-responsibilities/registration |
+| 6 | Berkeley Student Cooperative home page | Membership, mission, and housing system overview | https://bsc.coop/ |
+| 7 | BSC Our Houses & Apartments | House-specific descriptions, eligibility, food, and workshift details | https://bsc.coop/housing/our-houses-apartments |
+| 8 | BSC Academic Year Rates | Co-op costs, payment schedule, and what is included in rent | https://bsc.coop/housing/academic-year-rates |
+| 9 | Apartment List Berkeley city page | Berkeley rent overview, FAQs, and neighborhood summaries | https://www.apartmentlist.com/ca/berkeley |
+| 10 | Apartment List Downtown Berkeley page | Downtown listings, price bands, and walkability/noise context | https://www.apartmentlist.com/ca/berkeley/neighborhoods/downtown-berkeley |
+| 11 | Apartment List Southside page | Campus-adjacent listings and student-housing options | https://www.apartmentlist.com/ca/berkeley/neighborhoods/southside |
+| 12 | Apartment List West Berkeley page | Broader neighborhood options and lower-cost rental inventory | https://www.apartmentlist.com/ca/berkeley/neighborhoods/west-berkeley |
 
 ---
 
 ## Chunking Strategy
 
-<!-- How will you split documents into chunks?
-     State your chunk size (in tokens or characters), overlap size, and explain why those
-     numbers fit the structure of your documents.
-     A review-heavy corpus warrants different chunking than a long FAQ. -->
 
 **Chunk size:**
+800 tokens
 
 **Overlap:**
+120 tokens
 
 **Reasoning:**
+These sources are mostly sectioned pages with FAQ blocks, pricing tables, and apartment cards. An 800-token chunk usually keeps one neighborhood explanation, one co-op description, or one policy subsection intact, while a small overlap preserves headings and the lead-in to tables or warning lists.
 
 ---
 
@@ -66,30 +66,25 @@
 
 ## Evaluation Plan
 
-<!-- List your 5 test questions with their expected correct answers.
-     Questions should be specific enough that you can judge whether the system's response
-     is right or wrong. "What are good dining halls?" is too vague.
-     "What do students say about wait times at [dining hall name] during lunch?" is testable. -->
 
 | # | Question | Expected answer |
 |---|----------|-----------------|
-| 1 | | |
-| 2 | | |
-| 3 | | |
-| 4 | | |
-| 5 | | |
+| 1 | What does BSC say a room-and-board house costs per semester, and what is included? | $4,986 per semester for Fall 2026 / Spring 2027; food, utilities, cleaning supplies, furniture, and co-op-wide events are included. |
+| 2 | Which BSC house is substance-free and academically themed? | Cloyne Court. |
+| 3 | Name two scam red flags listed by UC Berkeley Off-Campus Rental Services. | Examples include below-market rent, requests to wire money, inability to meet in person, and dramatic landlord stories. |
+| 4 | How does Apartment List describe Downtown Berkeley, and what drawback does it mention? | Urban/bustling/walkable; it warns about possible 2AM noise and limited parking during events. |
+| 5 | What is the average rent for a 1-bedroom apartment in Berkeley according to Apartment List? | $2,665+ per month. |
 
 ---
 
 ## Anticipated Challenges
 
-<!-- What could go wrong? Name at least two specific risks with reasoning.
-     Consider: noisy or inconsistent documents, missing source attribution, off-topic
-     retrieval, chunks that split key information across boundaries. -->
 
-1.
+1. ApartmentList pages mix neighborhood summaries with large blocks of listings and images, so poor cleaning could leave the retriever focused on repeated boilerplate instead of the actual neighborhood facts.
 
-2.
+2. The corpus includes policy pages, pricing pages, and descriptive housing pages that update at different rates, so the system could return stale price or availability information unless the final pipeline makes freshness clear.
+
+3. BSC pages are highly house-specific, so chunking has to preserve the house name and eligibility details or answers may blend multiple co-ops together.
 
 ---
 

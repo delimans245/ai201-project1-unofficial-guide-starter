@@ -9,31 +9,28 @@
 
 ## Domain
 
-<!-- What topic or category of knowledge does your system cover?
-     Why is this knowledge valuable, and why is it hard to find through official channels?
-     Example: "Student reviews of CS professors at [university] — useful because official
-     course descriptions don't reflect teaching style, exam difficulty, or workload." -->
+Off-campus housing and Berkeley student co-op housing for UC Berkeley students.
+
+This guide is useful because the information students actually need is spread across campus rental services, city tenant resources, co-op housing pages, and apartment listings. It is hard to find through a single official channel because rent, room type, commute, safety, and scam-avoidance details are maintained separately and change over time.
 
 ---
 
 ## Document Sources
 
-<!-- List every source you collected documents from.
-     Be specific: include URLs, subreddit names, forum thread titles, or file names.
-     Aim for variety — sources that together cover different subtopics or perspectives. -->
-
 | # | Source | Type | URL or file path |
 |---|--------|------|-----------------|
-| 1 | | | |
-| 2 | | | |
-| 3 | | | |
-| 4 | | | |
-| 5 | | | |
-| 6 | | | |
-| 7 | | | |
-| 8 | | | |
-| 9 | | | |
-| 10 | | | |
+| 1 | UC Berkeley Off-Campus Rental Services | Web page | https://och.berkeley.edu/ |
+| 2 | Avoid Scams & Fraud | Web page | https://och.berkeley.edu/avoid-scams-and-fraud |
+| 3 | Contact Cal Rentals | Web page | https://och.berkeley.edu/resources/article/5422-contact-calrentals |
+| 4 | Berkeley Rent Board home page | Web page | https://rentboard.berkeleyca.gov/ |
+| 5 | Berkeley Rent Board registration page | Web page | https://rentboard.berkeleyca.gov/rights-responsibilities/registration |
+| 6 | Berkeley Student Cooperative home page | Web page | https://bsc.coop/ |
+| 7 | BSC Our Houses & Apartments | Web page | https://bsc.coop/housing/our-houses-apartments |
+| 8 | BSC Academic Year Rates | Web page | https://bsc.coop/housing/academic-year-rates |
+| 9 | Apartment List Berkeley city page | Web page | https://www.apartmentlist.com/ca/berkeley |
+| 10 | Apartment List Downtown Berkeley page | Web page | https://www.apartmentlist.com/ca/berkeley/neighborhoods/downtown-berkeley |
+| 11 | Apartment List Southside page | Web page | https://www.apartmentlist.com/ca/berkeley/neighborhoods/southside |
+| 12 | Apartment List West Berkeley page | Web page | https://www.apartmentlist.com/ca/berkeley/neighborhoods/west-berkeley |
 
 ---
 
