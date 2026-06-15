@@ -46,21 +46,20 @@ This knowledge is valuable because rent, commute, room type, meal plans, and lan
 **Reasoning:**
 These sources are mostly sectioned pages with FAQ blocks, pricing tables, and apartment cards. An 800-token chunk usually keeps one neighborhood explanation, one co-op description, or one policy subsection intact, while a small overlap preserves headings and the lead-in to tables or warning lists.
 
+Before chunking, I will strip repeated navigation/footer boilerplate, keep section headings, and preserve the source URL/title alongside each chunk so retrieval can still cite where a fact came from.
+
 ---
 
 ## Retrieval Approach
 
-<!-- Which embedding model are you using (e.g., all-MiniLM-L6-v2 via sentence-transformers)?
-     How many chunks will you retrieve per query (top-k)?
-     If you were deploying this for real users and cost wasn't a constraint, what tradeoffs
-     would you weigh in choosing a different embedding model — context length, multilingual
-     support, accuracy on domain-specific text, latency? -->
+**Embedding model:** sentence-transformers/all-MiniLM-L6-v2
 
-**Embedding model:**
-
-**Top-k:**
+**Top-k:** 5
 
 **Production tradeoff reflection:**
+I chose a small, fast English embedding model because this corpus is mostly short-to-medium factual pages in one domain and I want retrieval to stay lightweight and easy to debug. If cost were not a constraint, I would consider a stronger embedding model with better handling of noisy web text and longer contexts, even if it increased latency, because these sources contain repeated boilerplate, tables, and mixed formatting that can dilute weaker embeddings.
+
+Semantic search still helps even when the query and document do not share exact wording because the embedding model maps related phrases into similar vector space. That matters here when a user asks about “student co-ops,” “room and board,” “rent-controlled apartments,” or “scam red flags” using different wording than the source pages.
 
 ---
 
@@ -90,28 +89,31 @@ These sources are mostly sectioned pages with FAQ blocks, pricing tables, and ap
 
 ## Architecture
 
-<!-- Draw a diagram of your pipeline showing the five stages:
-     Document Ingestion → Chunking → Embedding + Vector Store → Retrieval → Generation
-     Label each stage with the tool or library you're using.
-     You can use ASCII art, a Mermaid diagram, or embed a sketch as an image.
-     You'll use this diagram as context when prompting AI tools to implement each stage. -->
+```mermaid
+flowchart LR
+    A[Document Ingestion\nrequests + BeautifulSoup] --> B[Chunking\nCustom 800-token splitter]
+    B --> C[Embedding + Vector Store\nsentence-transformers/all-MiniLM-L6-v2 + ChromaDB]
+    C --> D[Retrieval\nCosine similarity top-k=5]
+    D --> E[Generation\nOpenAI GPT-4o mini]
+```
 
 ---
 
 ## AI Tool Plan
 
-<!-- For each part of the pipeline below, describe:
-     - Which AI tool you plan to use (Claude, Copilot, ChatGPT, etc.)
-     - What you'll give it as input (which sections of this planning.md, which requirements)
-     - What you expect it to produce
-     - How you'll verify the output matches your spec
-
-     "I'll use AI to help me code" is not a plan.
-     "I'll give Claude my Chunking Strategy section and ask it to implement chunk_text()
-     with my specified chunk size and overlap" is a plan. -->
-
 **Milestone 3 — Ingestion and chunking:**
+I will use Copilot to help implement the document download and text-cleaning pipeline after giving it the Domain, Documents, and Chunking Strategy sections from this file. I expect it to produce a scraper that pulls the saved URLs, strips boilerplate, and writes normalized text chunks with source metadata. I will verify the output by checking a few raw documents, inspecting sample chunks, and confirming that headings and source labels survive the split.
 
 **Milestone 4 — Embedding and retrieval:**
+I will use Copilot to help wire the embedding and vector store code after giving it the Retrieval Approach and Architecture sections. I expect it to produce code that embeds each chunk with sentence-transformers/all-MiniLM-L6-v2, stores the vectors in ChromaDB, and returns the top 5 most similar chunks for a query. I will verify it by running the evaluation questions and checking that retrieved chunks actually contain the facts the answer should use.
 
 **Milestone 5 — Generation and interface:**
+I will use Copilot to help implement the response layer after giving it the Evaluation Plan, Architecture diagram, and Grounding requirements. I expect it to produce a prompt that answers only from retrieved context, includes source attribution, and refuses to invent details that are not present in the documents. I will verify it by checking that each test question returns a grounded answer and that the cited sources match the retrieved chunks.
+
+---
+
+## Grounded Generation
+
+The system prompt will instruct the model to answer only from the retrieved context, to say when the documents do not contain enough information, and to cite the source titles or URLs used for the answer. The prompt will also tell the model not to guess about rent, availability, or policy details when the context is incomplete.
+
+Source attribution will be surfaced as a short “Sources” section after each answer, listing the chunk source title and URL used for the response. If multiple chunks support the answer, the response will cite the most relevant ones rather than inventing a single authoritative source.
